@@ -1,0 +1,6 @@
+/langchain
+venv/
+.env
+__pycache__/
+*.pt
+*.log
