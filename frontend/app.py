@@ -12,7 +12,7 @@ query = st.text_area('Describe your issue')
 
 if st.button('Analyse'):
     if query.strip() == '':
-        st.warning('Please enter a query')
+        st.warning('Please enter an issue')
     else:
         with st.spinner('Analysing...'):
             res = requests.post(
