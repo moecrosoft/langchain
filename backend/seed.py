@@ -1,4 +1,4 @@
-from db import get_conn, init_db
+from db import get_conn
 from rag import embedding_model
 
 data = [
@@ -35,12 +35,20 @@ data = [
 ]
 
 def seed():
-    init_db()
     conn = get_conn()
     cur = conn.cursor()
 
     for text in data:
+        cur.execute(
+            'SELECT 1 FROM incidents WHERE content = %s',
+            (text,)
+        )
+
+        if cur.fetchone():
+            continue
+
         emb = embedding_model.embed_query(text)
+
         cur.execute(
             'INSERT INTO incidents (content, embedding) VALUES (%s, %s)',
             (text, emb)
@@ -49,6 +57,3 @@ def seed():
     conn.commit()
     cur.close()
     conn.close()
-
-if __name__ == '__main__':
-    seed()

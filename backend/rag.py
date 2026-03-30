@@ -78,6 +78,6 @@ Return format.
     except:
         return {
             'root_cause': 'Failed to parse response',
-            'fix_steps': [response],
+            'fix_steps': [],
             'prevention': []
         }
